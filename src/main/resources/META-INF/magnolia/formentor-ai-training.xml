@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd" >
+<module>
+  <name>formentor-ai-training</name>
+  <displayName>${project.name}</displayName>
+  <description>${project.description}</description>
+  <class>com.formentor.magnolia.ai.training.AiTrainingModule</class>
+  <versionHandler>com.formentor.magnolia.ai.training.setup.AiTrainingModuleVersionHandler</versionHandler>
+  <version>${project.version}</version>
+
+  <!-- For more information on module descriptor configuration options -->
+  <!-- https://documentation.magnolia-cms.com/display/DOCS/XML-based+module+descriptor -->
+  <components>
+    <id>main</id>
+    <component>
+      <type>com.formentor.magnolia.ai.training.infrastructure.openai.TokenProvider</type>
+      <implementation>com.formentor.magnolia.ai.training.infrastructure.openai.TokenProviderPasswordsImpl</implementation>
+      <scope>singleton</scope>
+    </component>
+    <component>
+      <type>com.formentor.magnolia.ai.training.domain.AiModel</type>
+      <implementation>com.formentor.magnolia.ai.training.infrastructure.openai.AiModelOpenAI</implementation>
+      <scope>singleton</scope>
+    </component>
+    <component>
+      <type>com.formentor.magnolia.ai.training.application.AiModelTrainer</type>
+      <implementation>com.formentor.magnolia.ai.training.application.AiModelTrainer</implementation>
+      <scope>singleton</scope>
+    </component>
+  </components>
+  
+  <dependencies>
+    <dependency>
+      <name>core</name>
+      <version>*</version>
+    </dependency>
+    <!--  Add other dependencies here, e.g the mte (magnolia templating essentials).
+    <dependency>
+      <name>mte</name>
+      <version>0.7/*</version>
+    </dependency>
+    -->
+  </dependencies>
+</module>

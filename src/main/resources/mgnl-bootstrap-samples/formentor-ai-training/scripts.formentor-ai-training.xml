@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><sv:node xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" sv:name="formentor-ai-training"><sv:property sv:name="jcr:primaryType" sv:type="Name"><sv:value>mgnl:folder</sv:value></sv:property><sv:property sv:name="jcr:uuid" sv:type="String"><sv:value>40c09c28-763d-4e53-b973-49e8ae55a3ab</sv:value></sv:property><sv:property sv:name="mgnl:created" sv:type="Date"><sv:value>2024-06-11T16:07:18.208+02:00</sv:value></sv:property><sv:property sv:name="mgnl:createdBy" sv:type="String"><sv:value>superuser</sv:value></sv:property><sv:property sv:name="mgnl:lastModified" sv:type="Date"><sv:value>2024-06-11T16:09:35.659+02:00</sv:value></sv:property><sv:property sv:name="mgnl:lastModifiedBy" sv:type="String"><sv:value>superuser</sv:value></sv:property><sv:node sv:name="FineTuneModelExample"><sv:property sv:name="jcr:primaryType" sv:type="Name"><sv:value>mgnl:content</sv:value></sv:property><sv:property sv:name="jcr:uuid" sv:type="String"><sv:value>acf20c5e-6b9f-4bfe-a289-0cf6bdbf97db</sv:value></sv:property><sv:property sv:name="mgnl:created" sv:type="Date"><sv:value>2024-06-11T16:09:35.659+02:00</sv:value></sv:property><sv:property sv:name="mgnl:createdBy" sv:type="String"><sv:value>superuser</sv:value></sv:property><sv:property sv:name="mgnl:lastModified" sv:type="Date"><sv:value>2024-06-11T17:05:44.895+02:00</sv:value></sv:property><sv:property sv:name="mgnl:lastModifiedBy" sv:type="String"><sv:value>superuser</sv:value></sv:property><sv:property sv:name="script" sv:type="Boolean"><sv:value>true</sv:value></sv:property><sv:property sv:name="text" sv:type="String"><sv:value>cm = info.magnolia.commands.CommandsManager.getInstance()
+command = cm.getCommand('formentor','FineTuneModelCommand')
+
+/**
+ * 
+ * This example fine-tunes the model using as dataset:
+ * INPUT: properties "tourTypes", "category" and "displayName" of nodtypes "mgnl:content" in the workspace "tours" from path "/magnolia-travels" 
+ * COMPLETION: property "body"
+ *
+ * The fine-tuned model will be trained for the task of writing description of tours from the factsheet
+ */
+propertyPromptTourTypes = new com.formentor.magnolia.ai.training.domain.PropertyPromptValue()
+propertyPromptTourTypes.setPropertyName('tourTypes')
+reference = new com.formentor.magnolia.ai.training.domain.PropertyPromptValue.Reference()
+reference.setTargetWorkspace("category")
+reference.setTargetPropertyName("displayName")
+propertyPromptTourTypes.setReference(reference)
+
+propertyPromptLocation = new com.formentor.magnolia.ai.training.domain.PropertyPromptValue()
+propertyPromptLocation.setPropertyName('location')
+
+command.setWorkspace('tours')
+command.setModelName('magnolia-tours')
+command.setRoot('/magnolia-travels')
+command.setNodeType('mgnl:content')
+command.setPropertiesAsPrompt([propertyPromptTourTypes, propertyPromptLocation])
+command.setPropertyAsCompletion(['body'])
+
+command.execute(new info.magnolia.context.SimpleContext())</sv:value></sv:property></sv:node></sv:node>
